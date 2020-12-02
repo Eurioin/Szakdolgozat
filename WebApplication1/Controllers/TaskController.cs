@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Services;
-using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using WebApplication1.Models.DatabaseModels;
-using System.Linq;
-using System.Collections.Generic;
 
 namespace WebApplication1.Controllers
 {
