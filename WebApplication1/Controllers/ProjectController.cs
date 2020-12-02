@@ -29,7 +29,7 @@ namespace WebApplication1.Controllers
         public ActionResult Create(IFormCollection collection)
         {
             // létrehozás
-            return null
+            return null;
         }
 
         [HttpPost]
