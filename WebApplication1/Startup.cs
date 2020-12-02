@@ -9,8 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using WebApplication1.Data;
 using WebApplication1.Models;
+using WebApplication1.Models.DatabaseModels;
+using WebApplication1.Services;
 
 namespace WebApplication1
 {
@@ -44,6 +47,33 @@ namespace WebApplication1
 
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+
+            //Register mongo services prerequisites
+            services.Configure<AccountsDatabaseSettings>(
+               Configuration.GetSection(nameof(AccountsDatabaseSettings)));
+            services.AddSingleton<AccountsDatabaseSettings>(sp =>
+                sp.GetRequiredService<IOptions<AccountsDatabaseSettings>>().Value);
+
+            services.Configure<SubTasksDatabaseSettings>(
+                Configuration.GetSection(nameof(SubTasksDatabaseSettings)));
+            services.AddSingleton<SubTasksDatabaseSettings>(sp =>
+                sp.GetRequiredService<IOptions<SubTasksDatabaseSettings>>().Value);
+
+            services.Configure<TasksDatabaseSettings>(
+                Configuration.GetSection(nameof(TasksDatabaseSettings)));
+            services.AddSingleton<TasksDatabaseSettings>(sp =>
+                sp.GetRequiredService<IOptions<TasksDatabaseSettings>>().Value);
+
+            services.Configure<ProjectsDatabaseSettings>(
+                Configuration.GetSection(nameof(ProjectsDatabaseSettings)));
+            services.AddSingleton<ProjectsDatabaseSettings>(sp =>
+                sp.GetRequiredService<IOptions<ProjectsDatabaseSettings>>().Value);
+
+            // Register mongo services
+            services.AddSingleton<TaskService>();
+            services.AddSingleton<SubTaskService>();
+            services.AddSingleton<AccountService>();
+            services.AddSingleton<ProjectService>();
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
