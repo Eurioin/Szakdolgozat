@@ -1,4 +1,4 @@
-﻿namespace WebApplication1.Services.Interfaces
+﻿namespace Szakdolgozat.Services.Interfaces
 {
     public interface IDatabaseSettings
     {

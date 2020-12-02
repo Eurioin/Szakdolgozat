@@ -3,9 +3,9 @@ using MongoDB.Bson;
 using System.Collections.Generic;
 using MongoDB.Bson.Serialization.Attributes;
 using System.ComponentModel.DataAnnotations.Schema;
-using WebApplication1.Services.Interfaces;
+using Szakdolgozat.Services.Interfaces;
 
-namespace WebApplication1.Models.DatabaseModels
+namespace Szakdolgozat.Models.DatabaseModels
 {
     public class TasksDatabaseSettings : IDatabaseSettings
     {

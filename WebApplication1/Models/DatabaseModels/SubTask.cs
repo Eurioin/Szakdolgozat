@@ -1,8 +1,8 @@
 ﻿using MongoDB.Bson;
-using WebApplication1.Services.Interfaces;
+using Szakdolgozat.Services.Interfaces;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace WebApplication1.Models.DatabaseModels
+namespace Szakdolgozat.Models.DatabaseModels
 {
     public class SubTasksDatabaseSettings : IDatabaseSettings
     {

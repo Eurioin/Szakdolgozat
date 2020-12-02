@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApplication1.Models.DatabaseModels;
+using Szakdolgozat.Models.DatabaseModels;
 
-namespace WebApplication1.Services.Interfaces
+namespace Szakdolgozat.Services.Interfaces
 {
     public interface IMongoCrudRepository<T> 
     {

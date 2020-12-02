@@ -1,10 +1,10 @@
 ﻿using System;
 using MongoDB.Bson;
 using System.Collections.Generic;
-using WebApplication1.Services.Interfaces;
+using Szakdolgozat.Services.Interfaces;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace WebApplication1.Models.DatabaseModels
+namespace Szakdolgozat.Models.DatabaseModels
 {
     public class AccountsDatabaseSettings : IDatabaseSettings
     {

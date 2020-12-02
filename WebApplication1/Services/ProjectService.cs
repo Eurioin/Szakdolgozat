@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using MongoDB.Driver;
-using WebApplication1.Models.DatabaseModels;
-using WebApplication1.Services.Interfaces;
+using Szakdolgozat.Models.DatabaseModels;
+using Szakdolgozat.Services.Interfaces;
 
-namespace WebApplication1.Services
+namespace Szakdolgozat.Services
 {
     public class ProjectService : AbstractServiceBase<Project> 
     {

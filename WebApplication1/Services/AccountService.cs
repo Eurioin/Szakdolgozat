@@ -1,9 +1,9 @@
 ﻿using MongoDB.Driver;
 using System;
-using WebApplication1.Models.DatabaseModels;
-using WebApplication1.Services.Interfaces;
+using Szakdolgozat.Models.DatabaseModels;
+using Szakdolgozat.Services.Interfaces;
 
-namespace WebApplication1.Services
+namespace Szakdolgozat.Services
 {
     public class AccountService : AbstractServiceBase<Account>
     {

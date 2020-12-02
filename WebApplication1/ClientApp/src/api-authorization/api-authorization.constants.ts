@@ -1,4 +1,4 @@
-export const ApplicationName = 'WebApplication1';
+export const ApplicationName = 'Szakdolgozat';
 
 export const ReturnUrlType = 'returnUrl';
 

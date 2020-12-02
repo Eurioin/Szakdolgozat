@@ -7,12 +7,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using WebApplication1.Data;
-using WebApplication1.Models;
-using WebApplication1.Models.DatabaseModels;
-using WebApplication1.Services;
+using Szakdolgozat.Data;
+using Szakdolgozat.Models;
+using Szakdolgozat.Models.DatabaseModels;
+using Szakdolgozat.Services;
 
-namespace WebApplication1
+namespace Szakdolgozat
 {
     public class Startup
     {

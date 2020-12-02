@@ -2,11 +2,11 @@
 using MongoDB.Bson;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using WebApplication1.Services.Interfaces;
+using Szakdolgozat.Services.Interfaces;
 using MongoDB.Bson.Serialization.Attributes;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebApplication1.Models.DatabaseModels
+namespace Szakdolgozat.Models.DatabaseModels
 {
     public class ProjectsDatabaseSettings : IDatabaseSettings
     {

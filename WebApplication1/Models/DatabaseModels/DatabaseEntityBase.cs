@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace WebApplication1.Models.DatabaseModels
+namespace Szakdolgozat.Models.DatabaseModels
 {
     public abstract class DatabaseEntityBase
     {

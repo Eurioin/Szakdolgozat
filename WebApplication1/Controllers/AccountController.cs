@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebApplication1.Services;
+using Szakdolgozat.Services;
 using Microsoft.AspNetCore.Authorization;
-using WebApplication1.Models.DatabaseModels;
+using Szakdolgozat.Models.DatabaseModels;
 
-namespace WebApplication1.Controllers
+namespace Szakdolgozat.Controllers
 {
     [Authorize]
     [ApiController]
