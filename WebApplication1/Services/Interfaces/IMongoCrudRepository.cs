@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplication1.Models.DatabaseModels;
 
 namespace WebApplication1.Services.Interfaces
 {
-    public interface IMongoCrudRepository<T>
+    public interface IMongoCrudRepository<T> 
     {
         T GetById(string id);
 
