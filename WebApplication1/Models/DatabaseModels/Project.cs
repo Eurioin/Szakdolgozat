@@ -37,9 +37,16 @@ namespace WebApplication1.Models.DatabaseModels
         [BsonElement("NumberOfTasks")]
         public int NumberOfTasks { get; set; }
 
+        [BsonElement("CustomStatuses")]
+        public List<string> CustomStatuses { get; set; }
+        
+        [BsonElement("CustomTypes")]
+        public List<string> CustomTypes { get; set; }
+        
         [BsonElement("Tasks")]
         [BsonRepresentation(BsonType.ObjectId)]
         public List<string> Tasks { get; set; }
+
 
         [NotMapped]
         public List<ApplicationUser> ServerSideUsersList { get; set; }
