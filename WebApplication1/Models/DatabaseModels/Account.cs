@@ -1,10 +1,20 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-using System;
+﻿using System;
+using MongoDB.Bson;
 using System.Collections.Generic;
+using WebApplication1.Services.Interfaces;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace WebApplication1.Models.DatabaseModels
 {
+    public class AccountsDatabaseSettings : IDatabaseSettings
+    {
+        public string CollectionName { get; set; }
+
+        public string ConnectionString { get; set; }
+
+        public string DatabaseName { get; set; }
+    }
+
     public class Account : DatabaseEntityBase
     {
         [BsonElement("Username")]

@@ -3,9 +3,19 @@ using MongoDB.Bson;
 using System.Collections.Generic;
 using MongoDB.Bson.Serialization.Attributes;
 using System.ComponentModel.DataAnnotations.Schema;
+using WebApplication1.Services.Interfaces;
 
 namespace WebApplication1.Models.DatabaseModels
 {
+    public class TasksDatabaseSettings : IDatabaseSettings
+    {
+        public string CollectionName { get; set; }
+
+        public string ConnectionString { get; set; }
+
+        public string DatabaseName { get; set; }
+    }
+
     public class Task : DatabaseEntityBase
     {
         [BsonElement("Name")]

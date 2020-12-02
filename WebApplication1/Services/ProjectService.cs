@@ -28,6 +28,7 @@ namespace WebApplication1.Services
         {
             return this._collection.Find(p => p.Id.Equals(id)).FirstOrDefault();
         }
+
         public override void Update(string id, Project item)
         {
             this._collection.ReplaceOne(p => p.Id.Equals(id), item);
