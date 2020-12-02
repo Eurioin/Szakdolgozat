@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Mvc;
+using WebApplication1.Services;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
+using WebApplication1.Models.DatabaseModels;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace WebApplication1.Controllers
 {
@@ -13,39 +13,52 @@ namespace WebApplication1.Controllers
     [Route("[controller]")]
     public class TaskController : Controller
     {
-        public TaskController()
+        private readonly TaskService taskService;
+        private readonly SubTaskService subTaskService;
+
+        public TaskController(TaskService tService, SubTaskService stService)
         {
-            // repo kezelő ide
+            this.taskService = tService;
+            this.subTaskService = stService;
         }
 
-        public ActionResult Details(string projectId)
+        public ActionResult<Task> Details(string taskId)
         {
-            // részletek lekérése
-            return null;
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            // létrehozás
-            return null;
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            // szerkesztés
-            return null;
+            var task = this.taskService.GetById(taskId);
+            var subs = this.subTaskService.GetAll().Where(t => t.ParentTaksId.Equals(task.Id));
+            task.ServerSideTaskList = new List<SubTask>();
+            task.ServerSideTaskList.AddRange(subs);
+            return task;
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(string projectId)
+        public void Create(Task t)
         {
-            // törlés
-            return null;
+            this.taskService.Create(t);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public void Edit(string id, Task t)
+        {
+            this.taskService.Update(id, t);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public void Delete(string id)
+        {
+            var task = this.taskService.GetById(id);
+            if (task.NumberOfSubTasks != 0)
+            {
+                foreach (var item in task.SubTasksIds)
+                {
+                    this.subTaskService.Remove(item);
+                }
+            }
+
+            this.taskService.Remove(id);
         }
     }
 }

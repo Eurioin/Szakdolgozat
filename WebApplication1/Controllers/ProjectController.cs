@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
+using WebApplication1.Services;
+using Microsoft.AspNetCore.Authorization;
+using WebApplication1.Models.DatabaseModels;
 
 namespace WebApplication1.Controllers
 {
@@ -13,39 +10,38 @@ namespace WebApplication1.Controllers
     [Route("[controller]")]
     public class ProjectController : Controller
     {
-        public ProjectController()
+        private readonly ProjectService projectService;
+
+        public ProjectController(ProjectService service)
         {
-            // repo kezelő ide
+            this.projectService = service;
         }
 
-        public ActionResult Details(string projectId)
+        [HttpGet]
+        public ActionResult<Project> Details(string projectId)
         {
-            // részletek lekérése
-            return null;
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            // létrehozás
-            return null;
+            return this.projectService.GetById(projectId);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public void Create(Project p)
         {
-            // szerkesztés
-            return null;
+            this.projectService.Create(p);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(string projectId)
+        public void Edit(string id, Project p)
         {
-            // törlés
-            return null;
+            this.projectService.Update(id, p);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public void Delete(string projectId)
+        {
+            this.projectService.Remove(projectId);
         }
     }
 }

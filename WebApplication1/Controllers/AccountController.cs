@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplication1.Models.DatabaseModels;
+using WebApplication1.Services;
 
 namespace WebApplication1.Controllers
 {
@@ -13,15 +15,17 @@ namespace WebApplication1.Controllers
     [Route("[controller]")]
     public class AccountController : Controller
     {
-        public AccountController()
+        private readonly AccountService accountService;
+
+        public AccountController(AccountService service)
         {
-            // repo kezelő ide
+            this.accountService = service;
         }
 
         // Get users informations by id (GPDR safe probably)
-        public ActionResult Details(string userid)
+        public ActionResult<Account> Details(string userid)
         {
-            return View();
+            return this.accountService.GetById(userid);
         }
     }
 }
