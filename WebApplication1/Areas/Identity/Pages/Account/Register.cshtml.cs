@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Szakdolgozat.Models;
+using Szakdolgozat.Services;
 
 namespace Szakdolgozat.Areas.Identity.Pages.Account
 {
@@ -24,13 +25,17 @@ namespace Szakdolgozat.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly AccountService _accountService;
+        
 
         public RegisterModel(
+            AccountService accountService,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
+            _accountService = accountService;
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
@@ -92,6 +97,8 @@ namespace Szakdolgozat.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = Input.Username, Email = Input.Email, PhoneNumber = Input.PhoneNumber, FirstName = Input.FirstName, LastName = Input.LastName, FullName = Input.Name};
+                var mongoUser = new Szakdolgozat.Models.DatabaseModels.Account() { Username = Input.Username, Email = Input.Email, PhoneNumber = Input.PhoneNumber, FirstName = Input.FirstName, LastName = Input.LastName, Name = Input.Name, Url = Input.Username };
+                this._accountService.Create(mongoUser);
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

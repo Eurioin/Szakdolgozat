@@ -1,0 +1,11 @@
+<div class="container">
+    <div class="card" style="width: 18rem;" *ngFor="let account of Accounts">
+        <div class="card-body">
+            <h5 class="card-title">{{account.name}}</h5>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Phone: {{account.phoneNumber}}</li>
+                <li class="list-group-item">Email: {{account.email}}</li>
+            </ul>
+        </div>
+    </div>
+</div>

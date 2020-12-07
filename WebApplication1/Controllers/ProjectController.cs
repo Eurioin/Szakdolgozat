@@ -2,6 +2,9 @@
 using Szakdolgozat.Services;
 using Microsoft.AspNetCore.Authorization;
 using Szakdolgozat.Models.DatabaseModels;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Szakdolgozat.Controllers
 {
@@ -10,34 +13,48 @@ namespace Szakdolgozat.Controllers
     [Route("[controller]")]
     public class ProjectController : Controller
     {
+        private readonly AccountService accountService;
         private readonly ProjectService projectService;
 
-        public ProjectController(ProjectService service)
+        public ProjectController(ProjectService service, AccountService srv)
         {
             this.projectService = service;
+            this.accountService = srv;
         }
 
-        [HttpGet]
-        public ActionResult<Project> Details(string projectId)
+
+        [HttpPost("get")]
+        public ActionResult<IEnumerable<Project>> GetAll([FromBody]Account usr)
         {
-            return this.projectService.GetById(projectId);
+            var user = this.accountService.GetAll().Where(a => a.Username.Equals(usr.Username)).FirstOrDefault();
+            if (user.Roles.Where(r=> r.ToUpper().Equals("ADMIN")) != null)
+            {
+                return this.projectService.GetAll();
+            }
+            return this.projectService.GetAll().Where(p => p.Assignees.Contains(user.Id)).ToList();
         }
 
-        [HttpPost]
+        [HttpPost("project")]
+        public ActionResult<Project> Details([FromBody] Project project)
+        {
+            return this.projectService.GetById(project.Id);
+        }
+
+        [HttpPost("create")]
         [ValidateAntiForgeryToken]
         public void Create(Project p)
         {
             this.projectService.Create(p);
         }
 
-        [HttpPost]
+        [HttpPost("update")]
         [ValidateAntiForgeryToken]
         public void Edit(string id, Project p)
         {
             this.projectService.Update(id, p);
         }
 
-        [HttpPost]
+        [HttpPost("remove")]
         [ValidateAntiForgeryToken]
         public void Delete(string projectId)
         {
