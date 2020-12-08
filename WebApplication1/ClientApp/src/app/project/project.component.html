@@ -1,5 +1,8 @@
 <div class="container">
-    <h2 class="control-label">{{Project.name | async}}</h2>
+    <div>
+        <h2 class="control-label">{{Project.name}}</h2>
+        <button class="btn btn-primary" (click)="edit()">Update project</button>
+    </div>
     <span id="waiting">
         <table class="table table-borderless">
             <tr>

@@ -25,10 +25,10 @@ namespace Szakdolgozat.Controllers
 
 
         [HttpPost("get")]
-        public ActionResult<IEnumerable<Project>> GetAll([FromBody]Account usr)
+        public ActionResult<IEnumerable<Project>> GetAll([FromBody] Account usr)
         {
             var user = this.accountService.GetAll().Where(a => a.Username.Equals(usr.Username)).FirstOrDefault();
-            if (user.Roles.Where(r=> r.ToUpper().Equals("ADMIN")) != null)
+            if (user.Roles.Where(r => r.ToUpper().Equals("ADMIN")) != null)
             {
                 return this.projectService.GetAll();
             }
@@ -49,10 +49,32 @@ namespace Szakdolgozat.Controllers
         }
 
         [HttpPost("update")]
-        [ValidateAntiForgeryToken]
-        public void Edit(string id, Project p)
+        public Project Edit([FromBody] FromAngularProject p)
         {
-            this.projectService.Update(id, p);
+            var project = this.projectService.GetById(p.id);
+            var passedUsers = p.users.Split(';');
+            foreach (var user in passedUsers)
+            {
+                if (user.Length > 0)
+                {
+                    var account = this.accountService.GetByProperty("username", user);
+                    if (account != null)
+                    {
+                        project.Assignees.Add(account.Id);
+                        project.Assignees = project.Assignees.Distinct().ToList();
+                        project.NumberOfAssignees = project.Assignees.Count();
+                        if (account.AssignedProjects == null)
+                        {
+                            account.AssignedProjects = new List<string>();
+                        }
+                        account.AssignedProjects.Add(project.Id);
+                        account.AssignedProjects = account.AssignedProjects.Distinct().ToList();
+                        this.accountService.Update(account.Id, account);
+                    }
+                }
+            }
+            this.projectService.Update(project.Id, project);
+            return this.projectService.GetById(project.Id);
         }
 
         [HttpPost("remove")]

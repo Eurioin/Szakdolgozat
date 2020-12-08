@@ -1,3 +1,5 @@
+import { SubTask } from "./sub-task";
+
 export class Task {
     public id: string;
     public name: string;
@@ -7,7 +9,7 @@ export class Task {
     public status: string;
     public handledBy: string[];
     public description: string;
-    public subTasks: string[];
+    public serverSideTaskList: SubTask[];
     public dateOfCreation: Date;
     public endDate: Date;
     public numberOfSubTasks: number;

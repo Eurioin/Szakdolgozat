@@ -12,7 +12,7 @@ import { Task } from '../models/task';
   styleUrls: ['./project.component.css']
 })
 export class ProjectComponent implements OnInit {
-  public Project: Project;
+  public Project: Project = new Project();
   public WaitingTasks: Array<Task> = [];
   public InWorkTasks: Array<Task> = [];
   public StuckTasks: Array<Task> = [];
@@ -74,5 +74,9 @@ export class ProjectComponent implements OnInit {
 
   getCompleted(idx: number) {
     this.router.navigate(["task", this.CompletedTasks[idx].id ]);
+  }
+
+  edit() {
+    this.router.navigate(["project/update", this.Project.id]);
   }
 }

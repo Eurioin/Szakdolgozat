@@ -11,7 +11,11 @@ import { MongoAccount } from '../models/mongo-account';
   styleUrls: ['./account.component.css']
 })
 export class AccountComponent implements OnInit {
-  public Account: MongoAccount;
+  public Account: MongoAccount = new MongoAccount();
+  public name: string;
+  public phoneNumber: string;
+  public email: string;
+
   constructor(private fetcher: FetcherService, private authorizeService: AuthorizeService, private router: Router) { 
   }
 
@@ -30,11 +34,19 @@ export class AccountComponent implements OnInit {
 
   getAccountByUsername(username: string) {
     this.fetcher.getAccountFromApi(username).subscribe(resp => {
-      if (!this.Account) {
+      if (!this.Account.username) {
         this.Account=resp;
-        console.log(resp);
+        this.email = this.Account.email;
+        this.phoneNumber = this.Account.phoneNumber;
+        this.name = this.Account.name;
       }
     }, error => console.log(error));
   }
 
+  edit() {
+    this.Account.phoneNumber = this.phoneNumber;
+    this.Account.email = this.email;
+    this.Account.name = this.name;
+    this.fetcher.postUpdateAccountToApi(this.Account).subscribe(resp => this.Account = resp, err => console.log(err))
+  }
 }

@@ -25,10 +25,23 @@ namespace Szakdolgozat.Controllers
             return this.accountService.GetAll().Where(u => u.Username.Equals(username)).FirstOrDefault();
         }
 
+        [HttpGet("user/getById")]
+        public ActionResult<Account> GetById(string id)
+        {
+            return this.accountService.GetById(id);
+        }
+
         [HttpGet("accounts")]
         public ActionResult<IEnumerable<Account>> GetProfiles()
         {
             return this.accountService.GetAll();
+        }
+
+        [HttpPost("update")]
+        public ActionResult<Account> Update([FromBody]Account account)
+        {
+            this.accountService.Update(account.Id, account);
+            return accountService.GetById(account.Id);
         }
     }
 }

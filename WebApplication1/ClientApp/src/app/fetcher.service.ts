@@ -19,6 +19,10 @@ export class FetcherService {
     return this.client.get<MongoAccount>(this.baseUrl + 'account/user?username=' + username);
   }
 
+  getAccountFromApiById(id: string) {
+    return this.client.get<MongoAccount>(this.baseUrl + 'account/user/getById?id=' + id);
+  }
+
   getAccountsFromApi() {
     return this.client.get<MongoAccount[]>(this.baseUrl + 'account/accounts');
   }
@@ -27,9 +31,12 @@ export class FetcherService {
     return this.client.post(this.baseUrl + 'project/create', p);
   }
 
+  postUpdateAccountToApi(a: MongoAccount) {
+    return this.client.post<MongoAccount>(this.baseUrl + 'account/update', a);
+  }
 
   postUpdateProjectToApi(p: Project) {
-    return this.client.post(this.baseUrl + 'project/create', p);
+    return this.client.post(this.baseUrl + 'project/update', p);
   }
 
   getProjectFromApi(id: string) {

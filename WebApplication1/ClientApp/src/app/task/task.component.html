@@ -1,1 +1,32 @@
-<p>task works!</p>
+<div class="container">
+    <section>
+        <div class="form-group">
+            <h1>{{Task.name}}</h1>
+        </div>
+        <div class="form-group">
+            <div>
+                <strong>Description</strong>
+            </div>
+            <div>
+                <p>{{Task.description}}</p>   
+            </div>
+        </div>
+        <div class="form-group">
+            <div>
+                <strong>Deadline</strong>
+            </div>
+            <div>
+                <p>{{Task.endDate}}</p>   
+            </div>
+        </div>
+        <div class="form-group">
+            <div>
+                <strong>Subtasks</strong>
+            </div>
+            <div>
+                <li *ngFor="let sub of SubTasks">{{sub.description}}</li>
+            </div>
+        </div>
+    </section>
+    <button class="btn btn-primary" (click)="edit()">Edit task</button>
+</div>

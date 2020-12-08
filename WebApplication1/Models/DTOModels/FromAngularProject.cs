@@ -8,5 +8,7 @@ namespace Szakdolgozat.Models.DTOModels
     public class FromAngularProject
     {
         public string id { get; set; }
+
+        public string users { get; set; }
     }
 }

@@ -14,28 +14,40 @@ import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { AccountComponent } from './account/account.component';
 import { AccountsComponent } from './accounts/accounts.component';
+import { TaskComponent } from './task/task.component';
+import { UpdateProjectComponent } from './update-project/update-project.component';
+import { UpdateTaskComponent } from './update-task/update-task.component';
+import { CreateProjectComponent } from './create-project/create-project.component';
+import { CreateTaskComponent } from './create-task/create-task.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavMenuComponent,
-    HomeComponent,
-    ProjectComponent,
-    ProjectsComponent,
     AccountComponent,
     AccountsComponent,
+    CreateProjectComponent,
+    CreateTaskComponent,
+    HomeComponent,
+    NavMenuComponent,
+    ProjectComponent,
+    ProjectsComponent,
+    TaskComponent,
+    UpdateProjectComponent,
+    UpdateTaskComponent
   ],
   imports: [
+    ApiAuthorizationModule,
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
-    ApiAuthorizationModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'projects', component: ProjectsComponent },
-      { path: 'project/:id', component: ProjectComponent },
       { path: 'account', component: AccountComponent },
       { path: 'accounts', component: AccountsComponent },
+      { path: 'projects', component: ProjectsComponent },
+      { path: 'project/:id', component: ProjectComponent },
+      { path: 'project/update/:id', component: UpdateProjectComponent },
+      { path: 'task/:id', component: TaskComponent },
     ])
   ],
   providers: [
