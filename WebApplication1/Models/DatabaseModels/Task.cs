@@ -49,6 +49,11 @@ namespace Szakdolgozat.Models.DatabaseModels
         [BsonDateTimeOptions]
         public DateTime DateOfCreation { get; set; }
 
+        [BsonElement("EndDate")]
+        [BsonRepresentation(BsonType.DateTime)]
+        [BsonDateTimeOptions]
+        public DateTime EndDate { get; set; }
+
         [BsonElement("SubTasks")]
         [BsonRepresentation(BsonType.ObjectId)]
         public List<string> SubTasksIds { get; set; }

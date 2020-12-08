@@ -5,6 +5,7 @@ using Szakdolgozat.Models.DatabaseModels;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Szakdolgozat.Models.DTOModels;
 
 namespace Szakdolgozat.Controllers
 {
@@ -34,10 +35,10 @@ namespace Szakdolgozat.Controllers
             return this.projectService.GetAll().Where(p => p.Assignees.Contains(user.Id)).ToList();
         }
 
-        [HttpPost("project")]
-        public ActionResult<Project> Details([FromBody] Project project)
+        [HttpGet("project")]
+        public ActionResult<Project> Details(string id)
         {
-            return this.projectService.GetById(project.Id);
+            return this.projectService.GetById(id);
         }
 
         [HttpPost("create")]

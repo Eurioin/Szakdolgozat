@@ -21,9 +21,10 @@ namespace Szakdolgozat.Controllers
             this.subTaskService = stService;
         }
 
-        public ActionResult<Task> Details(string taskId)
+        [HttpGet("get")] 
+        public ActionResult<Task> Details(string id)
         {
-            var task = this.taskService.GetById(taskId);
+            var task = this.taskService.GetById(id);
             var subs = this.subTaskService.GetAll().Where(t => t.ParentTaksId.Equals(task.Id));
             task.ServerSideTaskList = new List<SubTask>();
             task.ServerSideTaskList.AddRange(subs);

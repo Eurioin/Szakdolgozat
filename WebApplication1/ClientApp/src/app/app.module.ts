@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { ProjectComponent } from './project/project.component';
+import { ProjectsComponent } from './projects/projects.component';
 import { HomeComponent } from './home/home.component';
 import { ApiAuthorizationModule } from 'src/api-authorization/api-authorization.module';
 import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
@@ -20,6 +21,7 @@ import { AccountsComponent } from './accounts/accounts.component';
     NavMenuComponent,
     HomeComponent,
     ProjectComponent,
+    ProjectsComponent,
     AccountComponent,
     AccountsComponent,
   ],
@@ -30,7 +32,8 @@ import { AccountsComponent } from './accounts/accounts.component';
     ApiAuthorizationModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'projects', component: ProjectComponent },
+      { path: 'projects', component: ProjectsComponent },
+      { path: 'project/:id', component: ProjectComponent },
       { path: 'account', component: AccountComponent },
       { path: 'accounts', component: AccountsComponent },
     ])

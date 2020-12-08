@@ -1,11 +1,83 @@
 <div class="container">
-    <div class="card" style="width: 18rem;" *ngFor="let project of Projects" >
-        <div class="card-body">
-            <h5 class="card-title">{{project.name}}</h5>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">{{project.numberOfTasks}} tasks in the project.</li>
-                <li class="list-group-item">{{project.numberOfAssignees}} assignees on the project.</li>
-            </ul>
-        </div>
-    </div>
+    <h2 class="control-label">{{Project.name | async}}</h2>
+    <span id="waiting">
+        <table class="table table-borderless">
+            <tr>
+                <th>Waiting for begin</th>
+            </tr>
+            <tr *ngFor="let task of WaitingTasks; let i = index">
+                <td *ngIf="task.status === 'Waiting for begin'">
+                    <div class="card" style="width: 18rem;" >
+                        <div class="card-body">
+                            <h5 class="card-title">{{task.name}}</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Deadline: {{task.endDate}}</li>
+                            </ul>
+                            <button class="btn btn-primary"  (click)="getWaiting(i)">Details</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </span>
+    <span id="inwork">
+        <table class="table table-borderless">
+            <tr>
+                <th>In work</th>
+            </tr>
+            <tr *ngFor="let task of InWorkTasks; let i = index">
+                <td *ngIf="task.status === 'In Work'">
+                    <div class="card" style="width: 18rem;" >
+                        <div class="card-body">
+                            <h5 class="card-title">{{task.name}}</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Deadline: {{task.endDate}}</li>
+                            </ul>
+                            <button class="btn btn-primary"  (click)="getInWork(i)">Details</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </span>
+    <span id="stuck">
+        <table class="table table-borderless">
+            <tr>
+                <th>Stuck</th>
+            </tr>
+            <tr *ngFor="let task of StuckTasks; let i = index">
+                <td *ngIf="task.status === 'Stuck'">
+                    <div class="card" style="width: 18rem;" >
+                        <div class="card-body">
+                            <h5 class="card-title">{{task.name}}</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Deadline: {{task.endDate}}</li>
+                            </ul>
+                            <button class="btn btn-primary"  (click)="getStuck(i)">Details</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </span>
+    <span id="completed">
+        <table class="table table-borderless">
+            <tr>
+                <th>Completed</th>
+            </tr>
+            <tr *ngFor="let task of CompletedTasks; let i = index">
+                <td *ngIf="task.status === 'Completed'">
+                    <div class="card" style="width: 18rem;" >
+                        <div class="card-body">
+                            <h5 class="card-title">{{task.name}}</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Deadline: {{task.endDate}}</li>
+                            </ul>
+                            <button class="btn btn-primary"  (click)="getCompleted(i)">Details</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </span>
 </div>
