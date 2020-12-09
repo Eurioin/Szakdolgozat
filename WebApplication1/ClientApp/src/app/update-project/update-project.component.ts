@@ -14,6 +14,7 @@ export class UpdateProjectComponent implements OnInit {
   public name: string = "";
   public users: string = "";
   private Id: string = "";
+  public company: string = "";
   
   constructor(private fetcher: FetcherService, private authorizeService: AuthorizeService, private router: Router, private route: ActivatedRoute) { 
   }
@@ -26,6 +27,7 @@ export class UpdateProjectComponent implements OnInit {
         this.Id = this.route.snapshot.paramMap.get('id');
         this.fetcher.getProjectFromApi(this.Id).subscribe(resp => {
           this.name = resp.name;
+          this.company = resp.company;
           resp.assignees.forEach(a =>{
             this.fetcher.getAccountFromApiById(a).subscribe(resp => {
               if (resp.username !== undefined && !this.users.includes(resp.username))
@@ -42,6 +44,7 @@ export class UpdateProjectComponent implements OnInit {
     p.id = this.Id;
     p.users = this.users;
     p.name = this.name;
-    this.fetcher.postUpdateProjectToApi(p).subscribe(resp => this.router.navigate(["projects"]), error =>console.log(error));
+    p.company = this.company;
+    this.fetcher.postUpdateProjectToApi(p).subscribe(resp => this.router.navigate(["project", this.Id]), error =>console.log(error));
   }
 }

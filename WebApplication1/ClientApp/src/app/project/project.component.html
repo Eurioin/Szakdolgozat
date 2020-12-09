@@ -1,86 +1,101 @@
 <div class="container">
     <div>
         <h2 class="control-label">{{Project.name}}</h2>
+        <h4 class="control-label">for {{Project.company}}</h4>
         <button class="btn btn-primary" (click)="edit()">Update project</button>
+        <button class="btn btn-secondary" (click)="create()">Create task for project</button>
+        <button class="btn btn-danger" (click)="delete()">Delete project</button>
     </div>
     <span id="waiting">
         <table class="table table-borderless">
-            <tr>
-                <th>Waiting for begin</th>
-            </tr>
-            <tr *ngFor="let task of WaitingTasks; let i = index">
-                <td *ngIf="task.status === 'Waiting for begin'">
-                    <div class="card" style="width: 18rem;" >
-                        <div class="card-body">
-                            <h5 class="card-title">{{task.name}}</h5>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Deadline: {{task.endDate}}</li>
-                            </ul>
-                            <button class="btn btn-primary"  (click)="getWaiting(i)">Details</button>
+            <thead>
+                <tr>
+                    <th>Waiting for begin</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let task of WaitingTasks; let i = index">
+                    <td *ngIf="task.status === 'Waiting for begin'">
+                        <div class="card" style="width: 18rem;" >
+                            <div class="card-body">
+                                <h5 class="card-title">{{task.name}}</h5>
+                                <p class="card-subtitle mb-2 text-muted">Status: <strong>{{task.status}}</strong></p>
+                                <p class="card-text">Deadline: <strong>{{task.endDate}}</strong></p>
+                                <button class="btn btn-primary btn-block" (click)="getWaiting(i)">Details</button>
+                            </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </span>
     <span id="inwork">
         <table class="table table-borderless">
-            <tr>
-                <th>In work</th>
-            </tr>
-            <tr *ngFor="let task of InWorkTasks; let i = index">
-                <td *ngIf="task.status === 'In Work'">
-                    <div class="card" style="width: 18rem;" >
-                        <div class="card-body">
-                            <h5 class="card-title">{{task.name}}</h5>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Deadline: {{task.endDate}}</li>
-                            </ul>
-                            <button class="btn btn-primary"  (click)="getInWork(i)">Details</button>
+            <thead>
+                <tr>
+                    <th>In progress</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let task of InProgressTasks; let i = index">
+                    <td *ngIf="task.status === 'In progress'">
+                        <div class="card" style="width: 18rem;" >
+                            <div class="card-body">
+                                <h5 class="card-title">{{task.name}}</h5>
+                                <p class="card-subtitle mb-2 text-muted">Status: <strong>{{task.status}}</strong></p>
+                                <p class="card-text">Deadline: <strong>{{task.endDate}}</strong></p>
+                                <button class="btn btn-primary btn-block" (click)="getInWork(i)">Details</button>
+                            </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </span>
     <span id="stuck">
         <table class="table table-borderless">
-            <tr>
-                <th>Stuck</th>
-            </tr>
-            <tr *ngFor="let task of StuckTasks; let i = index">
-                <td *ngIf="task.status === 'Stuck'">
-                    <div class="card" style="width: 18rem;" >
-                        <div class="card-body">
-                            <h5 class="card-title">{{task.name}}</h5>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Deadline: {{task.endDate}}</li>
-                            </ul>
-                            <button class="btn btn-primary"  (click)="getStuck(i)">Details</button>
+            <thead>
+                <tr>
+                    <th>Stuck</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let task of StuckTasks; let i = index">
+                    <td *ngIf="task.status === 'Stuck'">
+                        <div class="card" style="width: 18rem;" >
+                            <div class="card-body">
+                                <h5 class="card-title">{{task.name}}</h5>
+                                <p class="card-subtitle mb-2 text-muted">Status: <strong>{{task.status}}</strong></p>
+                                <p class="card-text">Deadline: <strong>{{task.endDate}}</strong></p>
+                                <button class="btn btn-primary btn-block" (click)="getStuck(i)">Details</button>
+                            </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </span>
     <span id="completed">
         <table class="table table-borderless">
-            <tr>
-                <th>Completed</th>
-            </tr>
-            <tr *ngFor="let task of CompletedTasks; let i = index">
-                <td *ngIf="task.status === 'Completed'">
-                    <div class="card" style="width: 18rem;" >
-                        <div class="card-body">
-                            <h5 class="card-title">{{task.name}}</h5>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Deadline: {{task.endDate}}</li>
-                            </ul>
-                            <button class="btn btn-primary"  (click)="getCompleted(i)">Details</button>
+            <thead>
+                <tr>
+                    <th>Completed</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let task of CompletedTasks; let i = index">
+                    <td *ngIf="task.status === 'Completed'">
+                        <div class="card" style="width: 18rem;" >
+                            <div class="card-body">
+                                <h5 class="card-title">{{task.name}}</h5>
+                                <p class="card-subtitle mb-2 text-muted">Status: <strong>{{task.status}}</strong></p>
+                                <p class="card-text">Deadline: <strong>{{task.endDate}}</strong></p>
+                                <button class="btn btn-primary"  (click)="getCompleted(i)">Details</button>
+                            </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </span>
 </div>

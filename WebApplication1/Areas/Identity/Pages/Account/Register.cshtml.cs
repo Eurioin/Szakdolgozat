@@ -98,10 +98,10 @@ namespace Szakdolgozat.Areas.Identity.Pages.Account
             {
                 var user = new ApplicationUser { UserName = Input.Username, Email = Input.Email, PhoneNumber = Input.PhoneNumber, FirstName = Input.FirstName, LastName = Input.LastName, FullName = Input.Name};
                 var mongoUser = new Szakdolgozat.Models.DatabaseModels.Account() { Username = Input.Username, Email = Input.Email, PhoneNumber = Input.PhoneNumber, FirstName = Input.FirstName, LastName = Input.LastName, Name = Input.Name, Url = Input.Username };
-                this._accountService.Create(mongoUser);
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    this._accountService.Create(mongoUser);
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

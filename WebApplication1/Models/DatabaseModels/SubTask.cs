@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using Szakdolgozat.Services.Interfaces;
 using MongoDB.Bson.Serialization.Attributes;
+using System;
 
 namespace Szakdolgozat.Models.DatabaseModels
 {
@@ -22,5 +23,10 @@ namespace Szakdolgozat.Models.DatabaseModels
         [BsonElement("ParentTaksId")]
         [BsonRepresentation(BsonType.ObjectId)]
         public string ParentTaksId { get; set; }
+
+        [BsonElement("DateOfCreation")]
+        [BsonRepresentation(BsonType.DateTime)]
+        [BsonDateTimeOptions]
+        public DateTime DateOfCreation { get; set; }
     }
 }

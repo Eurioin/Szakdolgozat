@@ -17,6 +17,12 @@ namespace Szakdolgozat.Models.DatabaseModels
 
     public class Account : DatabaseEntityBase
     {
+        public Account()
+        {
+            this.AssignedProjects = new List<string>();
+            this.UniqueRoles = new List<string>();
+        }
+
         [BsonElement("Username")]
         public string Username { get; set; }
 
@@ -47,8 +53,7 @@ namespace Szakdolgozat.Models.DatabaseModels
         [BsonRepresentation(BsonType.ObjectId)]
         public List<string> AssignedProjects { get; set; }
 
-        [BsonElement("Roles")]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public List<string> Roles{ get; set; }
+        [BsonElement("UniqueRoles")]
+        public List<string> UniqueRoles { get; set; }
     }
 }

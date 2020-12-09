@@ -11,6 +11,7 @@ import { MongoAccount } from '../models/mongo-account';
 })
 export class AccountsComponent implements OnInit {
   public Accounts: Array<MongoAccount>;
+  public User: MongoAccount;
 
   constructor(private fetcher: FetcherService, private authorizeService: AuthorizeService, private router: Router) { 
   }
@@ -23,6 +24,7 @@ export class AccountsComponent implements OnInit {
           this.router.navigate(["/authentication/login"]);
         } else {
           this.getAccounts(sessionStorage.getItem('username'));
+          this.fetcher.getAccountFromApi(sessionStorage.getItem('username')).subscribe(resp => this.User = resp, err => console.log(err));
         }
       }
     });
@@ -35,5 +37,9 @@ export class AccountsComponent implements OnInit {
         console.log(resp);
       }
     }, error => console.log(error));
+  }
+
+  edit(idx: number) {
+    this.router.navigate(["accounts", this.Accounts[idx].id]);
   }
 }

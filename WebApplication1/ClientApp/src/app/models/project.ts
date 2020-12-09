@@ -7,4 +7,5 @@ export class Project {
     public numberOfTasks: number;
     public tasks: string[];
     public users: string;
+    public company: string;
 }

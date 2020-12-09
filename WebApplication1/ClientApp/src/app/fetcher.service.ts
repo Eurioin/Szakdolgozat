@@ -39,11 +39,27 @@ export class FetcherService {
     return this.client.post(this.baseUrl + 'project/update', p);
   }
 
+  postNewTaskToApi(t: Task) {
+    return this.client.post(this.baseUrl + 'task/create', t);
+  }
+
+  postUpdateTaskToApi(t: Task) {
+    return this.client.post(this.baseUrl + 'task/update', t);
+  }
+
   getProjectFromApi(id: string) {
     return this.client.get<Project>(this.baseUrl + 'project/project?id=' + id);
   }
 
   getTaskFromApi(id: string) {
     return this.client.get<Task>(this.baseUrl + 'task/get?id=' + id);
+  }
+
+  deleteProjectUsingApi(p: Project) {
+    return this.client.post(this.baseUrl + "project/remove", p);
+  }
+
+  deleteTaskUsingApi(t: Task) {
+    return this.client.post(this.baseUrl + "task/remove", t);
   }
 }

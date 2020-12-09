@@ -33,4 +33,7 @@ export class ProjectsComponent implements OnInit {
     this.router.navigate(["project", this.Projects[idx].id ]);
   }
 
+  create() {
+    this.router.navigate(["/project/create"]);
+  }
 }

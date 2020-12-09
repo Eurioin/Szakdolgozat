@@ -14,10 +14,10 @@ import { Task } from '../models/task';
 export class ProjectComponent implements OnInit {
   public Project: Project = new Project();
   public WaitingTasks: Array<Task> = [];
-  public InWorkTasks: Array<Task> = [];
+  public InProgressTasks: Array<Task> = [];
   public StuckTasks: Array<Task> = [];
   public CompletedTasks: Array<Task> = [];
-  public Columns = ["Waiting for begin","In work","Stuck","Completed"];
+  public Columns = ["Waiting for begin","In progress","Stuck","Completed"];
 
   constructor(private fetcher: FetcherService, private authorizeService: AuthorizeService, private router: Router, private route: ActivatedRoute) { 
   }
@@ -38,15 +38,15 @@ export class ProjectComponent implements OnInit {
   getTasksFromApi() {
     this.Project.tasks.forEach(t => {
       this.fetcher.getTaskFromApi(t).subscribe(task => {
-        var filtered = this.WaitingTasks.filter(ta => ta.id === task.id).concat(this.InWorkTasks.filter(ta => ta.id === task.id).concat(this.StuckTasks.filter(ta => ta.id === task.id).concat(this.CompletedTasks.filter(ta => ta.id === task.id))));
+        var filtered = this.WaitingTasks.filter(ta => ta.id === task.id).concat(this.InProgressTasks.filter(ta => ta.id === task.id).concat(this.StuckTasks.filter(ta => ta.id === task.id).concat(this.CompletedTasks.filter(ta => ta.id === task.id))));
         if (filtered.length == 0) {
           switch (task.status) {
             default:
             case 'Waiting for begin':
               this.WaitingTasks.push(task);
               break;
-            case 'In work':
-              this.InWorkTasks.push(task);
+            case 'In progress':
+              this.InProgressTasks.push(task);
               break;
             case 'Stuck':
               this.StuckTasks.push(task);
@@ -65,7 +65,7 @@ export class ProjectComponent implements OnInit {
   }
 
   getInWork(idx: number) {
-    this.router.navigate(["task", this.InWorkTasks[idx].id ]);
+    this.router.navigate(["task", this.InProgressTasks[idx].id ]);
   }
 
   getStuck(idx: number) {
@@ -78,5 +78,15 @@ export class ProjectComponent implements OnInit {
 
   edit() {
     this.router.navigate(["project/update", this.Project.id]);
+  }
+
+  delete() {
+    this.fetcher.deleteProjectUsingApi(this.Project).subscribe(resp => {
+      this.router.navigate(["projects"]);
+    }, error => console.log(error));
+  }
+
+  create() {
+    this.router.navigate(["task/create", this.Project.id]);
   }
 }

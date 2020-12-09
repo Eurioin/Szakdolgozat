@@ -19,6 +19,7 @@ import { UpdateProjectComponent } from './update-project/update-project.componen
 import { UpdateTaskComponent } from './update-task/update-task.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
 import { CreateTaskComponent } from './create-task/create-task.component';
+import { OtherAccountComponent } from './other-account/other-account.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { CreateTaskComponent } from './create-task/create-task.component';
     CreateTaskComponent,
     HomeComponent,
     NavMenuComponent,
+    OtherAccountComponent,
     ProjectComponent,
     ProjectsComponent,
     TaskComponent,
@@ -44,10 +46,14 @@ import { CreateTaskComponent } from './create-task/create-task.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'account', component: AccountComponent },
       { path: 'accounts', component: AccountsComponent },
+      { path: 'accounts/:id', component: OtherAccountComponent },
+      { path: 'project/create', component: CreateProjectComponent },
       { path: 'projects', component: ProjectsComponent },
       { path: 'project/:id', component: ProjectComponent },
       { path: 'project/update/:id', component: UpdateProjectComponent },
       { path: 'task/:id', component: TaskComponent },
+      { path: 'task/create/:id', component: CreateTaskComponent },
+      { path: 'task/update/:id', component: UpdateTaskComponent },
     ])
   ],
   providers: [

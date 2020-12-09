@@ -36,7 +36,7 @@ namespace Szakdolgozat.Models.DatabaseModels
 
         [BsonElement("HandledBy")]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string[] HandledBy { get; set; }
+        public List<string> HandledBy { get; set; }
 
         [BsonElement("Description")]
         public string Description { get; set; }

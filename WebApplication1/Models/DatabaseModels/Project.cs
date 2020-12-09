@@ -41,6 +41,8 @@ namespace Szakdolgozat.Models.DatabaseModels
         [BsonRepresentation(BsonType.ObjectId)]
         public List<string> Tasks { get; set; }
 
+        [BsonElement("Company")]
+        public string Company { get; set; }
 
         [NotMapped]
         public List<ApplicationUser> ServerSideUsersList { get; set; }

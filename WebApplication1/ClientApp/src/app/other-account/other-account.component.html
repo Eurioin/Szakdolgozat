@@ -16,7 +16,7 @@
             <label for="email" class="control-label">Email: </label>
             <input id="email" class="form-control" type="text" [(ngModel)]="email"/>
         </div>
-        <div class="form-group" *ngIf="Account.uniqueRoles !== undefined && Account.uniqueRoles.includes('ADMIN')">
+        <div class="form-group" *ngIf="CurrentUser.uniqueRoles !== undefined && CurrentUser.uniqueRoles.includes('ADMIN')">
             <label for="roles" class="control-label">Roles (separated by ';', empty for default credentials): </label>
             <input id="roles" class="form-control" type="text" [(ngModel)]="roles"/>
         </div>

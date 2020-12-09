@@ -8,6 +8,8 @@ export class Task {
     public type: string;
     public status: string;
     public handledBy: string[];
+    public users: string;
+    public subTasks: string;
     public description: string;
     public serverSideTaskList: SubTask[];
     public dateOfCreation: Date;

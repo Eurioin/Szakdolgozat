@@ -15,6 +15,7 @@ export class AccountComponent implements OnInit {
   public name: string;
   public phoneNumber: string;
   public email: string;
+  public roles = "";
 
   constructor(private fetcher: FetcherService, private authorizeService: AuthorizeService, private router: Router) { 
   }
@@ -39,6 +40,16 @@ export class AccountComponent implements OnInit {
         this.email = this.Account.email;
         this.phoneNumber = this.Account.phoneNumber;
         this.name = this.Account.name;
+        if (this.Account.uniqueRoles.includes('ADMIN')) {
+          resp.uniqueRoles.forEach( r => {
+            if (r !== undefined && !this.roles.includes(r)) {
+              this.roles += r + ';';
+            }
+          });
+        } else {
+          this.roles = "";
+          this.Account.uniqueRoles = [];
+        }
       }
     }, error => console.log(error));
   }

@@ -1,12 +1,18 @@
+<h2>Projects</h2>
+<br/>
+<div class="container"> 
+    <button class="btn btn-primary" (click)="create()">Create new project</button>
+</div>
+<br/>
 <div class="container">
-    <div class="card" style="width: 18rem;" *ngFor="let project of Projects; let i = index" >
+    <span class="card" style="width: 18rem;" *ngFor="let project of Projects; let i = index" >
         <div class="card-body">
             <h5 class="card-title">{{project.name}}</h5>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">{{project.numberOfTasks}} tasks in the project.</li>
                 <li class="list-group-item">{{project.numberOfAssignees}} assignees on the project.</li>
             </ul>
-            <button class="btn btn-primary"  (click)="getProject(i)">Open project</button>
+            <button class="btn btn-primary btn-block"  (click)="getProject(i)">Open project</button>
         </div>
-    </div>
+    </span>
 </div>

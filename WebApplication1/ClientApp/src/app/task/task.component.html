@@ -27,6 +27,16 @@
                 <li *ngFor="let sub of SubTasks">{{sub.description}}</li>
             </div>
         </div>
+        <div class="form-group">
+            <div>
+                <strong>Assigned to</strong>
+            </div>
+            <div>
+                <li *ngFor="let handler of Handlers">{{handler}}</li>
+            </div>
+        </div>
     </section>
-    <button class="btn btn-primary" (click)="edit()">Edit task</button>
+    <button class="btn btn-primary btn-block" (click)="edit()">Edit task</button>
+    <button class="btn btn-secondary btn-block" (click)="back()">Back to project</button>
+    <button class="btn btn-danger btn-block" (click)="delete()">Delete task</button>
 </div>

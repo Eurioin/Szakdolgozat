@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Szakdolgozat.Models.DatabaseModels;
 using System.Linq;
 using System.Collections.Generic;
+using Szakdolgozat.Models.DTOModels;
 
 namespace Szakdolgozat.Controllers
 {
@@ -38,10 +39,37 @@ namespace Szakdolgozat.Controllers
         }
 
         [HttpPost("update")]
-        public ActionResult<Account> Update([FromBody]Account account)
+        public ActionResult<Account> Update([FromBody]FromAngularAccount account)
         {
-            this.accountService.Update(account.Id, account);
-            return accountService.GetById(account.Id);
+            var acc = this.accountService.GetById(account.id);
+            acc.Email = account.email;
+            acc.Name = account.name;
+            acc.PhoneNumber = account.phoneNumber;
+
+            string[] passedRoles;
+
+            if (account.roles.Count(x => x == ';') == 1 && account.roles.LastIndexOf(';') == account.roles.Length - 1)
+            {
+                passedRoles = new string[1];
+                passedRoles[0] = account.roles.Substring(0, account.roles.LastIndexOf(';'));
+            }
+            else
+            {
+                passedRoles = account.roles.Split(';');
+            }
+
+            acc.UniqueRoles = new List<string>();
+
+            foreach (var role in passedRoles)
+            {
+                if (role.Length > 0)
+                {
+                    acc.UniqueRoles.Add(role);
+                }
+            }
+
+            this.accountService.Update(acc.Id, acc);
+            return accountService.GetById(acc.Id);
         }
     }
 }
