@@ -34,23 +34,27 @@ namespace Szakdolgozat.Controllers
         public ActionResult<IEnumerable<Project>> GetAll([FromBody] Account usr)
         {
             var user = this.accountService.GetAll().Where(a => a.Username.Equals(usr.Username)).FirstOrDefault();
-            var roles = user.UniqueRoles.Where(r => r.ToUpper().Equals("ADMIN"));
-            if (roles.Count() != 0)
+            if (user != null)
             {
-                return this.projectService.GetAll();
-            }
-            var projects = new List<Project>();
-
-            foreach (var project in user.AssignedProjects)
-            {
-                var p = this.projectService.GetById(project);
-                if (p != null)
+                var roles = user.UniqueRoles.Where(r => r.ToUpper().Equals("ADMIN"));
+                if (roles.Count() != 0)
                 {
-                    projects.Add(p);
+                    return this.projectService.GetAll();
                 }
+                var projects = new List<Project>();
+
+                foreach (var project in user.AssignedProjects)
+                {
+                    var p = this.projectService.GetById(project);
+                    if (p != null)
+                    {
+                        projects.Add(p);
+                    }
+                }
+                return projects;
             }
 
-            return projects;
+            return null;
         }
 
         [HttpGet("project")]

@@ -12,6 +12,7 @@ import { Project } from '../models/project';
 export class CreateProjectComponent implements OnInit {
   public name: string = "";
   public users: string = "";
+  public company: string = "";
 
   constructor(private fetcher: FetcherService, private authorizeService: AuthorizeService, private router: Router) { 
   }
@@ -33,6 +34,7 @@ export class CreateProjectComponent implements OnInit {
     var p = new Project();
     p.users = this.users;
     p.name = this.name;
+    p.company = this.company;
     this.fetcher.postNewProjectToApi(p).subscribe(resp => this.router.navigate(["projects"]), error =>console.log(error));
   }
 }
