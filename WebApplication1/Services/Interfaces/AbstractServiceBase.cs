@@ -34,7 +34,7 @@ namespace Szakdolgozat.Services.Interfaces
             throw new NotImplementedException();
         }
 
-        public virtual T GetByProperty(string propertyname, string value)
+        public virtual List<T> GetByProperty(string propertyname, string value)
         {
             throw new NotImplementedException();
         }

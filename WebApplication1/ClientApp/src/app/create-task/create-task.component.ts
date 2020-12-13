@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthorizeService } from 'src/api-authorization/authorize.service';
 import { FetcherService } from '../fetcher.service';
+import { SubTask } from '../models/sub-task';
 import { Task } from '../models/task';
 
 @Component({
@@ -45,7 +46,11 @@ export class CreateTaskComponent implements OnInit {
     t.endDate = this.date;
     t.priority = this.priority;
     t.type =this.type;
-    t.subTasks = this.subtasks;
+    this.subtasks.split(';').forEach(sb => {
+      var s = new SubTask();
+      s.description = sb;
+      t.subTasks.push(s);
+    });
     t.project = this.project;
     this.fetcher.postNewTaskToApi(t).subscribe(resp => this.router.navigate(["project",this.project]), error =>console.log(error));
   }

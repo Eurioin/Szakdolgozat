@@ -58,6 +58,6 @@ export class AccountComponent implements OnInit {
     this.Account.phoneNumber = this.phoneNumber;
     this.Account.email = this.email;
     this.Account.name = this.name;
-    this.fetcher.postUpdateAccountToApi(this.Account).subscribe(resp => this.Account = resp, err => console.log(err))
+    this.fetcher.postUpdateAccountToApi(this.Account).subscribe(resp => this.router.navigate(["/"]), err => console.log(err))
   }
 }

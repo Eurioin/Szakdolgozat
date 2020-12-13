@@ -23,7 +23,7 @@ namespace Szakdolgozat.Controllers
         [HttpGet("user")]
         public ActionResult<Account> Details(string username)
         {
-            return this.accountService.GetAll().Where(u => u.Username.Equals(username)).FirstOrDefault();
+            return this.accountService.GetByProperty("username", username)[0];
         }
 
         [HttpGet("user/getById")]
@@ -45,22 +45,9 @@ namespace Szakdolgozat.Controllers
             acc.Email = account.email;
             acc.Name = account.name;
             acc.PhoneNumber = account.phoneNumber;
-
-            string[] passedRoles;
-
-            if (account.roles.Count(x => x == ';') == 1 && account.roles.LastIndexOf(';') == account.roles.Length - 1)
-            {
-                passedRoles = new string[1];
-                passedRoles[0] = account.roles.Substring(0, account.roles.LastIndexOf(';'));
-            }
-            else
-            {
-                passedRoles = account.roles.Split(';');
-            }
-
             acc.UniqueRoles = new List<string>();
-
-            foreach (var role in passedRoles)
+            
+            foreach (var role in account.roles)
             {
                 if (role.Length > 0)
                 {

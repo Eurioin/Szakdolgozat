@@ -1,29 +1,29 @@
-﻿using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using Szakdolgozat.Models.DatabaseModels;
+using MongoDB.Driver;
+using System.Collections.Generic;
 using Szakdolgozat.Services.Interfaces;
+using Szakdolgozat.Models.DatabaseModels;
 
 namespace Szakdolgozat.Services
 {
     public class TaskService : AbstractServiceBase<Task>
     {
-        public TaskService(TasksDatabaseSettings settings) : base(settings) {}
+        public TaskService(TasksDatabaseSettings settings) : base(settings) { }
 
-        public override Task GetByProperty(string propertyname, string value)
+        public override List<Task> GetByProperty(string propertyname, string value)
         {
             switch (propertyname.ToLower())
             {
                 case "name":
-                    return this._collection.Find(p => p.Name.Equals(value)).FirstOrDefault();
+                    return this._collection.Find(p => p.Name.Equals(value)).ToList();
                 case "dateofcreation":
                     var date = DateTime.Parse(value);
-                    return this._collection.Find(p => p.DateOfCreation.Equals(date)).FirstOrDefault();
+                    return this._collection.Find(p => p.DateOfCreation.Equals(date)).ToList();
                 case "description":
-                    return this._collection.Find(p => p.Description.Equals(value)).FirstOrDefault();
+                    return this._collection.Find(p => p.Description.Equals(value)).ToList();
                 default:
-                    return this.GetById(value);
+                    return new List<Task>() { this.GetById(value) };
             }
         }
 

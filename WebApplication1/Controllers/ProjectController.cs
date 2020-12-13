@@ -2,12 +2,10 @@
 using Szakdolgozat.Services;
 using Microsoft.AspNetCore.Authorization;
 using Szakdolgozat.Models.DatabaseModels;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Szakdolgozat.Models.DTOModels;
 using System;
-using System.IO;
 
 namespace Szakdolgozat.Controllers
 {
@@ -20,20 +18,22 @@ namespace Szakdolgozat.Controllers
         private readonly ProjectService projectService;
         private readonly TaskService taskService;
         private readonly SubTaskService subTaskService;
+        private readonly CommentService commentService;
 
-        public ProjectController(ProjectService service, AccountService srv, TaskService taskService, SubTaskService subTaskService)
+        public ProjectController(ProjectService service, AccountService srv, TaskService taskService, SubTaskService subTaskService, CommentService commentService)
         {
             this.projectService = service;
             this.accountService = srv;
             this.taskService = taskService;
             this.subTaskService = subTaskService;
+            this.commentService = commentService;
         }
 
 
         [HttpPost("get")]
         public ActionResult<IEnumerable<Project>> GetAll([FromBody] Account usr)
         {
-            var user = this.accountService.GetAll().Where(a => a.Username.Equals(usr.Username)).FirstOrDefault();
+            var user = this.accountService.GetByProperty("username", usr.Username)[0];
             if (user != null)
             {
                 var roles = user.UniqueRoles.Where(r => r.ToUpper().Equals("ADMIN"));
@@ -81,23 +81,11 @@ namespace Szakdolgozat.Controllers
                 return null;
             }
 
-            string[] passedUsers;
-
-            if (p.users.Count(x => x == ';') == 1 && p.users.LastIndexOf(';') == p.users.Length - 1)
-            {
-                passedUsers = new string[1];
-                passedUsers[0] = p.users.Substring(0, p.users.LastIndexOf(';'));
-            }
-            else
-            {
-                passedUsers = p.users.Split(';');
-            }
-
-            foreach (var user in passedUsers)
+            foreach (var user in p.users)
             {
                 if (user.Length > 0)
                 {
-                    var account = this.accountService.GetByProperty("username", user);
+                    var account = this.accountService.GetByProperty("username", user)[0];
                     if (account != null)
                     {
                         project.Assignees.Add(account.Id);
@@ -122,23 +110,13 @@ namespace Szakdolgozat.Controllers
         {
             var project = this.projectService.GetById(p.id);
             project.Name = p.name;
-            string[] passedUsers;
-
-            if (p.users.Count(x => x == ';') == 1 && p.users.LastIndexOf(';') == p.users.Length - 1)
-            {
-                passedUsers = new string[1];
-                passedUsers[0] = p.users.Substring(0, p.users.LastIndexOf(';'));
-            }
-            else
-            {
-                passedUsers = p.users.Split(';');
-            }
             project.Assignees = new List<string>();
-            foreach (var user in passedUsers)
+
+            foreach (var user in p.users)
             {
                 if (user.Length > 0)
                 {
-                    var account = this.accountService.GetByProperty("username", user);
+                    var account = this.accountService.GetByProperty("username", user)[0];
                     if (account != null)
                     {
                         project.Assignees.Add(account.Id);
@@ -177,10 +155,18 @@ namespace Szakdolgozat.Controllers
             {
                 var task = this.taskService.GetById(t);
                 var subtasks = task.SubTasksIds;
+                var comments = task.Comments;
+                
                 foreach (var st in subtasks)
                 {
                     this.subTaskService.Remove(st);
                 }
+
+                foreach (var com in comments)
+                {
+                    this.commentService.Remove(com);
+                }
+
                 this.taskService.Remove(task.Id);
             }
 

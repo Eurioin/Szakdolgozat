@@ -1,0 +1,13 @@
+.comment {
+    background-color: honeydew;
+    padding: 5px;
+    border-color: slategrey;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 3px;
+}
+
+.comment-input {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}

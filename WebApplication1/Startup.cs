@@ -66,11 +66,17 @@ namespace Szakdolgozat
             services.AddSingleton<ProjectsDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<ProjectsDatabaseSettings>>().Value);
 
+            services.Configure<CommentsDatabaseSettings>(
+                Configuration.GetSection(nameof(CommentsDatabaseSettings)));
+            services.AddSingleton<CommentsDatabaseSettings>(sp =>
+                sp.GetRequiredService<IOptions<CommentsDatabaseSettings>>().Value);
+
             // Register mongo services
             services.AddSingleton<TaskService>();
             services.AddSingleton<SubTaskService>();
             services.AddSingleton<AccountService>();
             services.AddSingleton<ProjectService>();
+            services.AddSingleton<CommentService>();
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();

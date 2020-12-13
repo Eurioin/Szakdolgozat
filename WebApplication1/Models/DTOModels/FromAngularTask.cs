@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Szakdolgozat.Models.DatabaseModels;
 
 namespace Szakdolgozat.Models.DTOModels
 {
@@ -19,9 +18,12 @@ namespace Szakdolgozat.Models.DTOModels
 
         public string type { get; set; }
 
-        public string users { get; set; }
+        // usernames
+        public List<string> users { get; set; }
 
-        public string subTasks { get; set; }
+        public List<SubTask> subTasks { get; set; }
+
+        public List<Comment> comments { get; set; }
 
         public string description { get; set; }
 

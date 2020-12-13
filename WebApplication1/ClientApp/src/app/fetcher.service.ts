@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
+import { Megjegyzes } from './models/comment';
 import { MongoAccount } from './models/mongo-account';
 import { Project } from './models/project';
 import { Task } from './models/task';
@@ -61,5 +62,9 @@ export class FetcherService {
 
   deleteTaskUsingApi(t: Task) {
     return this.client.post(this.baseUrl + "task/remove", t);
+  }
+
+  sendComment(c: Megjegyzes) {
+    return this.client.post(this.baseUrl + "comment/add", c);
   }
 }

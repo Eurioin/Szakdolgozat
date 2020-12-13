@@ -24,7 +24,7 @@
                 <strong>Subtasks</strong>
             </div>
             <div>
-                <li *ngFor="let sub of SubTasks">{{sub.description}}</li>
+                <li *ngFor="let sub of Task.subTasks">{{sub.description}}</li>
             </div>
         </div>
         <div class="form-group">
@@ -32,7 +32,22 @@
                 <strong>Assigned to</strong>
             </div>
             <div>
-                <li *ngFor="let handler of Handlers">{{handler}}</li>
+                <li *ngFor="let handler of Task.users">{{handler}}</li>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="container">
+                <strong>Comments</strong>
+                <div class="comment">
+                    <section *ngFor="let com of Task.comments">
+                        <strong>{{com.authorId}} - {{com.dateOfCreation}}</strong>
+                        <p>{{com.content}}</p>
+                    </section>
+                </div>
+            </div>
+            <div class="container">
+                <textarea placeholder="Comment" class="form-control comment-input"></textarea>
+                <button class="btn btn-primary btn-block" (click)="comment">Comment</button>
             </div>
         </div>
     </section>

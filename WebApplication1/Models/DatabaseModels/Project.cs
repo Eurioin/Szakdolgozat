@@ -43,11 +43,5 @@ namespace Szakdolgozat.Models.DatabaseModels
 
         [BsonElement("Company")]
         public string Company { get; set; }
-
-        [NotMapped]
-        public List<ApplicationUser> ServerSideUsersList { get; set; }
-
-        [NotMapped]
-        public List<Task> ServerSideTasksList { get; set; }
     }
 }

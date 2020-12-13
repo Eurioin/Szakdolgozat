@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Szakdolgozat.Models.DTOModels
 {
@@ -11,7 +8,7 @@ namespace Szakdolgozat.Models.DTOModels
 
         public string name { get; set; }
 
-        public string users { get; set; }
+        public List<string> users { get; set; }
 
         public string company { get; set; }
     }

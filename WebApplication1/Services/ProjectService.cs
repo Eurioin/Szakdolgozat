@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Linq;
 using MongoDB.Driver;
-using Szakdolgozat.Models.DatabaseModels;
+using System.Collections.Generic;
 using Szakdolgozat.Services.Interfaces;
+using Szakdolgozat.Models.DatabaseModels;
 
 namespace Szakdolgozat.Services
 {
@@ -10,17 +11,17 @@ namespace Szakdolgozat.Services
     {
         public ProjectService(ProjectsDatabaseSettings settings) : base(settings) {}
 
-        public override Project GetByProperty(string propertyname, string value)
+        public override List<Project> GetByProperty(string propertyname, string value)
         {
             switch (propertyname.ToLower())
             {
                 case "name":
-                    return this._collection.Find(p => p.Name.Equals(value)).FirstOrDefault();
+                    return this._collection.Find(p => p.Name.Equals(value)).ToList();
                 case "dateofcreation":
                     var date = DateTime.Parse(value);
-                    return this._collection.Find(p => p.DateOfCreation.Equals(date)).FirstOrDefault();
+                    return this._collection.Find(p => p.DateOfCreation.Equals(date)).ToList();
                 default:
-                    return this.GetById(value);
+                    return new List<Project>() { this.GetById(value) };
             }
         }
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthorizeService } from 'src/api-authorization/authorize.service';
 import { FetcherService } from '../fetcher.service';
+import { SubTask } from '../models/sub-task';
 import { Task } from '../models/task';
 
 @Component({
@@ -54,11 +55,6 @@ export class UpdateTaskComponent implements OnInit {
           }
         });
       });
-      resp.serverSideTaskList.forEach(s => {
-        if (s.description !== undefined && s.description !== "" && !this.subtasks.includes(s.description)) {
-          this.subtasks += s.description + ";";
-        }
-      });
     });
   }
 
@@ -72,7 +68,11 @@ export class UpdateTaskComponent implements OnInit {
     t.priority = this.priority;
     t.type =this.type;
     t.status =this.status;
-    t.subTasks = this.subtasks;
+    this.subtasks.split(';').forEach(sb => {
+      var s = new SubTask();
+      s.description = sb;
+      t.subTasks.push(s);
+    });
     t.project = this.project;
     this.fetcher.postUpdateTaskToApi(t).subscribe(resp => this.router.navigate(["project", this.project]), error =>console.log(error));
   }

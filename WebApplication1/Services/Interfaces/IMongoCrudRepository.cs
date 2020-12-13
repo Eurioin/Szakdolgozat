@@ -10,7 +10,7 @@ namespace Szakdolgozat.Services.Interfaces
     {
         T GetById(string id);
 
-        T GetByProperty(string propertyname, string value);
+        List<T> GetByProperty(string propertyname, string value);
 
         List<T> GetAll();
 

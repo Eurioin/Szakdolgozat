@@ -1,25 +1,25 @@
-﻿using MongoDB.Driver;
-using System;
+﻿using System.Linq;
+using MongoDB.Driver;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Szakdolgozat.Models.DatabaseModels;
 using Szakdolgozat.Services.Interfaces;
+using Szakdolgozat.Models.DatabaseModels;
 
 namespace Szakdolgozat.Services
 {
     public class SubTaskService : AbstractServiceBase<SubTask>
     {
-        public SubTaskService(SubTasksDatabaseSettings settings) : base(settings) {}
+        public SubTaskService(SubTasksDatabaseSettings settings) : base(settings) { }
 
-        public override SubTask GetByProperty(string propertyname, string value)
+        public override List<SubTask> GetByProperty(string propertyname, string value)
         {
             switch (propertyname.ToLower())
             {
                 case "description":
-                    return this._collection.Find(p => p.Description.Equals(value)).FirstOrDefault();
+                    return this._collection.Find(p => p.Description.Equals(value)).ToList();
+                case "parenttaskid":
+                    return this._collection.Find(p => p.ParentTaksId.Equals(value)).ToList();
                 default:
-                    return this.GetById(value);
+                    return new List<SubTask>() { this.GetById(value) };
             }
         }
 

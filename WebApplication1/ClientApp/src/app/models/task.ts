@@ -1,4 +1,5 @@
 import { SubTask } from "./sub-task";
+import { Megjegyzes } from "./comment";
 
 export class Task {
     public id: string;
@@ -9,10 +10,10 @@ export class Task {
     public status: string;
     public handledBy: string[];
     public users: string;
-    public subTasks: string;
+    public subTasks: SubTask[];
     public description: string;
-    public serverSideTaskList: SubTask[];
     public dateOfCreation: Date;
     public endDate: Date;
     public numberOfSubTasks: number;
+    public comments: Megjegyzes;
 }

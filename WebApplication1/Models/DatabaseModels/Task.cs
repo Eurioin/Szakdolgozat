@@ -58,7 +58,8 @@ namespace Szakdolgozat.Models.DatabaseModels
         [BsonRepresentation(BsonType.ObjectId)]
         public List<string> SubTasksIds { get; set; }
 
-        [NotMapped]
-        public List<SubTask> ServerSideTaskList { get; set; }
+        [BsonElement("Comments")]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public List<string> Comments { get; set; }
     }
 }
