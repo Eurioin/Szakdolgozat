@@ -5,3 +5,8 @@
 .card {
     max-width: 15rem;
 }
+
+.right-sided {
+    float: right;
+    position: relative;
+}

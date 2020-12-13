@@ -6,7 +6,12 @@
         </div>
         <div class="form-group">
             <label for="priority" class="control-label">Priority: </label>
-            <input id="priority" class="form-control" type="text" [(ngModel)]="priority"/>
+            <select id="priority" class="form-control" [(ngModel)]="priority">
+                <option value="1">Low</option>
+                <option value="2">Normal</option>
+                <option value="3">High</option>
+                <option value="4">Immediate</option>
+            </select>
         </div>
         <div class="form-group">
             <label for="type" class="control-label">Type: </label>
@@ -21,8 +26,10 @@
             <input id="sub" class="form-control" type="text" [(ngModel)]="subtasks"/>
         </div>
         <div class="form-group">
-            <label for="users" class="control-label">Add people to the task (username, with ';' separation): </label>
-            <input id="users" class="form-control" type="text" [(ngModel)]="users"/>
+            <label for="users" class="control-label">Add people to the task: </label>
+            <ul *ngFor="let cand of Users; let i = index">
+                <p><input type="checkbox" [(ngModel)]="Selected[i]"/> {{cand}}</p>
+            </ul>
         </div>
         <div class="form-group">
             <label for="date" class="control-label">Deadline: </label>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthorizeService } from 'src/api-authorization/authorize.service';
@@ -17,7 +17,7 @@ export class ProjectComponent implements OnInit {
   public InProgressTasks: Array<Task> = [];
   public StuckTasks: Array<Task> = [];
   public CompletedTasks: Array<Task> = [];
-  public Columns = ["Waiting for begin","In progress","Stuck","Completed"];
+  public Columns = ["Waiting for begin", "In progress", "Stuck", "Completed"];
 
   constructor(private fetcher: FetcherService, private authorizeService: AuthorizeService, private router: Router, private route: ActivatedRoute) { 
   }
@@ -27,7 +27,7 @@ export class ProjectComponent implements OnInit {
       if (!auth) {
         this.router.navigate(["/authentication/login"]);
       } else {
-        this.fetcher.getProjectFromApi(this.route.snapshot.paramMap.get('id')).subscribe(resp => {
+        this.fetcher.getProjectFromApi(this.route.snapshot.paramMap.get('id')).then(resp => {
           this.Project = resp;
           this.getTasksFromApi();
         });
@@ -43,16 +43,45 @@ export class ProjectComponent implements OnInit {
           switch (task.status) {
             default:
             case 'Waiting for begin':
-              this.WaitingTasks.push(task);
+              if (this.WaitingTasks.length > 0 && task.priority > this.WaitingTasks[this.WaitingTasks.length - 1].priority) {
+                var tmp = Array<Task>();
+                tmp.push(task);
+                tmp = tmp.concat(this.WaitingTasks);
+                this.WaitingTasks = tmp;
+              } else {
+                this.WaitingTasks.push(task);
+              }
               break;
             case 'In progress':
-              this.InProgressTasks.push(task);
+              if (this.InProgressTasks.length > 0 && task.priority > this.InProgressTasks[this.InProgressTasks.length - 1].priority) {
+                var tmp = Array<Task>();
+                tmp.push(task);
+                tmp = tmp.concat(this.InProgressTasks);
+                this.InProgressTasks = tmp;
+              } else {
+                this.InProgressTasks.push(task);
+              }
               break;
             case 'Stuck':
-              this.StuckTasks.push(task);
+              
+              if (this.StuckTasks.length > 0 && task.priority > this.StuckTasks[this.StuckTasks.length - 1].priority) {
+                var tmp = Array<Task>();
+                tmp.push(task);
+                tmp = tmp.concat(this.StuckTasks);
+                this.StuckTasks = tmp;
+              } else {
+                this.StuckTasks.push(task);
+              }
               break;
             case 'Completed':
-              this.CompletedTasks.push(task);
+              if (this.CompletedTasks.length > 0 && task.priority > this.CompletedTasks[this.CompletedTasks.length - 1].priority) {
+                var tmp = Array<Task>();
+                tmp.push(task);
+                tmp = tmp.concat(this.CompletedTasks);
+                this.CompletedTasks = tmp;
+              } else {
+                this.CompletedTasks.push(task);
+              }
               break;
           }
         }

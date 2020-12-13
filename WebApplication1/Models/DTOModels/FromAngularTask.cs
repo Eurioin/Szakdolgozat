@@ -12,7 +12,7 @@ namespace Szakdolgozat.Models.DTOModels
 
         public string project { get; set; }
 
-        public string priority { get; set; }
+        public int priority { get; set; }
 
         public string status { get; set; }
 

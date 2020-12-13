@@ -49,7 +49,7 @@ export class FetcherService {
   }
 
   getProjectFromApi(id: string) {
-    return this.client.get<Project>(this.baseUrl + 'project/project?id=' + id);
+    return this.client.get<Project>(this.baseUrl + 'project/project?id=' + id).toPromise();
   }
 
   getTaskFromApi(id: string) {

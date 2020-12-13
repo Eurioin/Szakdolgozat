@@ -12,7 +12,7 @@ import { Megjegyzes} from '../models/comment';
 })
 export class TaskComponent implements OnInit {
   public Task: Task = new Task();
-  public Comment: string = '';
+  public Comment: string = "";
 
   constructor(private fetcher: FetcherService, private authorizeService: AuthorizeService, private router: Router, private route: ActivatedRoute) { 
   }
@@ -44,9 +44,11 @@ export class TaskComponent implements OnInit {
 
   comment() {
     var c = new Megjegyzes();
-    // szerző megkeresése jó lesz
+    c.authorId = sessionStorage.getItem('username');
     c.content = this.Comment;
     c.task = this.Task.id;
     this.fetcher.sendComment(c).subscribe(resp => this.router.navigate(['task', this.Task.id]), err => console.log(err));
+    this.Comment = "";
+    window.location.reload();
   }
 }

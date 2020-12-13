@@ -63,8 +63,8 @@ namespace Szakdolgozat.Controllers
                 dto.status = task.Status;
                 dto.type = task.Type;
                 dto.id = task.Id;
+                dto.endDate = task.EndDate;
             }
-
             
             return dto;
         }
@@ -110,14 +110,17 @@ namespace Szakdolgozat.Controllers
 
             foreach (var sb in t.subTasks)
             {
-                var sub = new SubTask();
-                sub.Description = sb.Description;
-                sub.ParentTaksId = task.Id;
-                sub.DateOfCreation = date;
-                this.subTaskService.Create(sub);
-                task.NumberOfSubTasks++;
-                sub = this.subTaskService.GetAll().Where(a => a.Description.Equals(sb) && a.DateOfCreation.Date.Equals(date.Date) && a.DateOfCreation.Hour.Equals(date.Hour) && a.DateOfCreation.Minute.Equals(date.Minute) && a.DateOfCreation.Second.Equals(date.Second)).FirstOrDefault();
-                task.SubTasksIds.Add(sub.Id);
+                if (sb.Description != null && sb.Description.Trim() != string.Empty)
+                {
+                    var sub = new SubTask();
+                    sub.Description = sb.Description;
+                    sub.ParentTaksId = task.Id;
+                    sub.DateOfCreation = date;
+                    this.subTaskService.Create(sub);
+                    task.NumberOfSubTasks++;
+                    sub = this.subTaskService.GetAll().Where(a => a.Description.Equals(sb) && a.DateOfCreation.Date.Equals(date.Date) && a.DateOfCreation.Hour.Equals(date.Hour) && a.DateOfCreation.Minute.Equals(date.Minute) && a.DateOfCreation.Second.Equals(date.Second)).FirstOrDefault();
+                    task.SubTasksIds.Add(sub.Id);
+                }
             }
 
             proj.NumberOfAssignees = proj.Assignees.Count();
@@ -173,13 +176,16 @@ namespace Szakdolgozat.Controllers
             task.SubTasksIds = new List<string>();
             foreach (var sub in t.subTasks)
             {
-                var subtask = new SubTask();
-                subtask.Description = sub.Description;
-                subtask.DateOfCreation = date;
-                subtask.ParentTaksId = task.Id;
-                this.subTaskService.Create(subtask);
-                subtask = this.subTaskService.GetAll().Where(a => a.Description.Equals(sub) && a.DateOfCreation.Date.Equals(date.Date) && a.DateOfCreation.Hour.Equals(date.Hour) && a.DateOfCreation.Minute.Equals(date.Minute) && a.DateOfCreation.Second.Equals(date.Second)).FirstOrDefault();
-                task.SubTasksIds.Add(subtask.Id);
+                if (sub.Description != null &&sub.Description != string.Empty)
+                {
+                    var subtask = new SubTask();
+                    subtask.Description = sub.Description;
+                    subtask.DateOfCreation = date;
+                    subtask.ParentTaksId = task.Id;
+                    this.subTaskService.Create(subtask);
+                    subtask = this.subTaskService.GetAll().Where(a => a.Description.Equals(sub) && a.DateOfCreation.Date.Equals(date.Date) && a.DateOfCreation.Hour.Equals(date.Hour) && a.DateOfCreation.Minute.Equals(date.Minute) && a.DateOfCreation.Second.Equals(date.Second)).FirstOrDefault();
+                    task.SubTasksIds.Add(subtask.Id);
+                }
             }
 
             proj.NumberOfAssignees = proj.Assignees.Count();

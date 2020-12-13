@@ -5,11 +5,11 @@ export class Task {
     public id: string;
     public name: string;
     public project: string;
-    public priority: string;
+    public priority: number;
     public type: string;
     public status: string;
     public handledBy: string[];
-    public users: string;
+    public users: string[];
     public subTasks: SubTask[];
     public description: string;
     public dateOfCreation: Date;

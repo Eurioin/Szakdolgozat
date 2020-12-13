@@ -4,24 +4,76 @@
         <h4 class="control-label">for {{Project.company}}</h4>
         <button class="btn btn-primary" (click)="edit()">Update project</button>
         <button class="btn btn-secondary" (click)="create()">Create task for project</button>
-        <button class="btn btn-danger" (click)="delete()">Delete project</button>
+        <button class="btn btn-danger right-sided" (click)="delete()">Delete project</button>
     </div>
+    <div class="card-body">
+        <strong>Color means priority</strong>
+        <span class="text-info">
+            Low
+        </span>
+        <span class="text-dark">
+            Normal
+        </span>
+        <span class="text-warning">
+            High
+        </span>
+        <span class="text-danger">
+            Immediate
+        </span>
+    </div>
+
     <span id="waiting">
         <table class="table table-borderless">
             <thead>
                 <tr>
-                    <th>Waiting for begin</th>
+                    <th>New</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let task of WaitingTasks; let i = index">
-                    <td *ngIf="task.status === 'Waiting for begin'">
-                        <div class="card" style="width: 18rem;" >
-                            <div class="card-body">
-                                <h5 class="card-title">{{task.name}}</h5>
-                                <p class="card-subtitle mb-2 text-muted">Status: <strong>{{task.status}}</strong></p>
-                                <p class="card-text">Deadline: <strong>{{task.endDate}}</strong></p>
-                                <button class="btn btn-primary btn-block" (click)="getWaiting(i)">Details</button>
+                    <td *ngIf="task.status === 'New'">
+                        <div *ngIf="task.priority === 1">
+                            <div class="card border-info" style="width: 18rem;" >
+                                <div class="card-body">
+                                    <h5 class="card-title">{{task.name}}</h5>
+                                    <p class="card-subtitle mb-2 text-muted">Status: <strong>{{task.status}}</strong></p>
+                                    <p class="card-subtitle mb-2 text-muted">Priority: <strong>Low</strong></p>
+                                    <p class="card-text">Deadline: <strong>{{task.endDate}}</strong></p>
+                                    <button class="btn btn-primary btn-block" (click)="getWaiting(i)">Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="task.priority === 2">
+                            <div class="card border-dark" style="width: 18rem;" >
+                                <div class="card-body">
+                                    <h5 class="card-title">{{task.name}}</h5>
+                                    <p class="card-subtitle mb-2 text-muted">Status: <strong>{{task.status}}</strong></p>
+                                    <p class="card-subtitle mb-2 text-muted">Priority: <strong>Normal</strong></p>
+                                    <p class="card-text">Deadline: <strong>{{task.endDate}}</strong></p>
+                                    <button class="btn btn-primary btn-block" (click)="getWaiting(i)">Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="task.priority === 3">
+                            <div class="card border-warning" style="width: 18rem;" >
+                                <div class="card-body">
+                                    <h5 class="card-title">{{task.name}}</h5>
+                                    <p class="card-subtitle mb-2 text-muted">Status: <strong>{{task.status}}</strong></p>
+                                    <p class="card-subtitle mb-2 text-muted">Priority: <strong>High</strong></p>
+                                    <p class="card-text">Deadline: <strong>{{task.endDate}}</strong></p>
+                                    <button class="btn btn-primary btn-block" (click)="getWaiting(i)">Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="task.priority === 4">
+                            <div class="card border-danger" style="width: 18rem;" >
+                                <div class="card-body">
+                                    <h5 class="card-title">{{task.name}}</h5>
+                                    <p class="card-subtitle mb-2 text-muted">Status: <strong>{{task.status}}</strong></p>
+                                    <p class="card-subtitle mb-2 text-muted">Priority: <strong>Immediate</strong></p>
+                                    <p class="card-text">Deadline: <strong>{{task.endDate}}</strong></p>
+                                    <button class="btn btn-primary btn-block" (click)="getWaiting(i)">Details</button>
+                                </div>
                             </div>
                         </div>
                     </td>
@@ -39,14 +91,50 @@
             <tbody>
                 <tr *ngFor="let task of InProgressTasks; let i = index">
                     <td *ngIf="task.status === 'In progress'">
-                        <div class="card" style="width: 18rem;" >
-                            <div class="card-body">
-                                <h5 class="card-title">{{task.name}}</h5>
-                                <p class="card-subtitle mb-2 text-muted">Status: <strong>{{task.status}}</strong></p>
-                                <p class="card-text">Deadline: <strong>{{task.endDate}}</strong></p>
-                                <button class="btn btn-primary btn-block" (click)="getInWork(i)">Details</button>
+                        <div *ngIf="task.priority === 1">
+                            <div class="card border-info" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{task.name}}</h5>
+                                    <p class="card-subtitle mb-2 text-muted">Status: <strong>{{task.status}}</strong></p>
+                                    <p class="card-subtitle mb-2 text-muted">Priority: <strong>Low</strong></p>
+                                    <p class="card-text">Deadline: <strong>{{task.endDate}}</strong></p>
+                                    <button class="btn btn-primary btn-block" (click)="getInWork(i)">Details</button>
+                                </div>
                             </div>
                         </div>
+                        <div *ngIf="task.priority === 2">
+                            <div class="card border-dark" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{task.name}}</h5>
+                                    <p class="card-subtitle mb-2 text-muted">Status: <strong>{{task.status}}</strong></p>
+                                    <p class="card-subtitle mb-2 text-muted">Priority: <strong>Normal</strong></p>
+                                    <p class="card-text">Deadline: <strong>{{task.endDate}}</strong></p>
+                                    <button class="btn btn-primary btn-block" (click)="getInWork(i)">Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="task.priority === 3">
+                            <div class="card border-warning" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{task.name}}</h5>
+                                    <p class="card-subtitle mb-2 text-muted">Status: <strong>{{task.status}}</strong></p>
+                                    <p class="card-subtitle mb-2 text-muted">Priority: <strong>High</strong></p>
+                                    <p class="card-text">Deadline: <strong>{{task.endDate}}</strong></p>
+                                    <button class="btn btn-primary btn-block" (click)="getInWork(i)">Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="task.priority === 4">
+                            <div class="card border-danger" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{task.name}}</h5>
+                                    <p class="card-subtitle mb-2 text-muted">Status: <strong>{{task.status}}</strong></p>
+                                    <p class="card-subtitle mb-2 text-muted">Priority: <strong>Immediate</strong></p>
+                                    <p class="card-text">Deadline: <strong>{{task.endDate}}</strong></p>
+                                    <button class="btn btn-primary btn-block" (click)="getInWork(i)">Details</button>
+                                </div>
+                            </div>
+                        </div>                        
                     </td>
                 </tr>
             </tbody>
@@ -62,12 +150,48 @@
             <tbody>
                 <tr *ngFor="let task of StuckTasks; let i = index">
                     <td *ngIf="task.status === 'Stuck'">
-                        <div class="card" style="width: 18rem;" >
-                            <div class="card-body">
-                                <h5 class="card-title">{{task.name}}</h5>
-                                <p class="card-subtitle mb-2 text-muted">Status: <strong>{{task.status}}</strong></p>
-                                <p class="card-text">Deadline: <strong>{{task.endDate}}</strong></p>
-                                <button class="btn btn-primary btn-block" (click)="getStuck(i)">Details</button>
+                        <div *ngIf="task.priority === 1">
+                            <div class="card border-info" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{task.name}}</h5>
+                                    <p class="card-subtitle mb-2 text-muted">Status: <strong>{{task.status}}</strong></p>
+                                    <p class="card-subtitle mb-2 text-muted">Priority: <strong>Low</strong></p>
+                                    <p class="card-text">Deadline: <strong>{{task.endDate}}</strong></p>
+                                    <button class="btn btn-primary btn-block" (click)="getStuck(i)">Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="task.priority === 2">
+                            <div class="card border-dark" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{task.name}}</h5>
+                                    <p class="card-subtitle mb-2 text-muted">Status: <strong>{{task.status}}</strong></p>
+                                    <p class="card-subtitle mb-2 text-muted">Priority: <strong>Normal</strong></p>
+                                    <p class="card-text">Deadline: <strong>{{task.endDate}}</strong></p>
+                                    <button class="btn btn-primary btn-block" (click)="getStuck(i)">Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="task.priority === 3">
+                            <div class="card border-warning" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{task.name}}</h5>
+                                    <p class="card-subtitle mb-2 text-muted">Status: <strong>{{task.status}}</strong></p>
+                                    <p class="card-subtitle mb-2 text-muted">Priority: <strong>High</strong></p>
+                                    <p class="card-text">Deadline: <strong>{{task.endDate}}</strong></p>
+                                    <button class="btn btn-primary btn-block" (click)="getStuck(i)">Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="task.priority === 4">
+                            <div class="card border-danger" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{task.name}}</h5>
+                                    <p class="card-subtitle mb-2 text-muted">Status: <strong>{{task.status}}</strong></p>
+                                    <p class="card-subtitle mb-2 text-muted">Priority: <strong>Immediate</strong></p>
+                                    <p class="card-text">Deadline: <strong>{{task.endDate}}</strong></p>
+                                    <button class="btn btn-primary btn-block" (click)="getStuck(i)">Details</button>
+                                </div>
                             </div>
                         </div>
                     </td>
@@ -85,11 +209,12 @@
             <tbody>
                 <tr *ngFor="let task of CompletedTasks; let i = index">
                     <td *ngIf="task.status === 'Completed'">
-                        <div class="card" style="width: 18rem;" >
+                        <div class="card border-success" style="width: 18rem;" >
                             <div class="card-body">
                                 <h5 class="card-title">{{task.name}}</h5>
                                 <p class="card-subtitle mb-2 text-muted">Status: <strong>{{task.status}}</strong></p>
-                                <p class="card-text">Deadline: <strong>{{task.endDate}}</strong></p>
+                                    <p class="card-subtitle mb-2 text-muted">Priority: <strong>{{task.priority}}</strong></p>
+                                    <p class="card-text">Deadline: <strong>{{task.endDate}}</strong></p>
                                 <button class="btn btn-primary"  (click)="getCompleted(i)">Details</button>
                             </div>
                         </div>

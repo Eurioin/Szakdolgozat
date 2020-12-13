@@ -26,7 +26,8 @@ namespace Szakdolgozat.Models.DatabaseModels
         public string Project { get; set; }
 
         [BsonElement("Priority")]
-        public string Priority { get; set; }
+        [BsonRepresentation(BsonType.Decimal128)]
+        public int Priority { get; set; }
 
         [BsonElement("Type")]
         public string Type { get; set; }
