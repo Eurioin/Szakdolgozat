@@ -35,7 +35,7 @@ export class CreateTaskComponent implements OnInit {
         var usr = sessionStorage.getItem('username');
         if (usr !== undefined) {
           this.project = this.route.snapshot.paramMap.get('id');
-          this.fetcher.getProjectFromApi(this.project).subscribe(resp => {
+          this.fetcher.getProjectFromApi(this.project).then(resp => {
             this.Project = resp;
             this.Selected = [];
             this.Project.assignees.forEach(a => {

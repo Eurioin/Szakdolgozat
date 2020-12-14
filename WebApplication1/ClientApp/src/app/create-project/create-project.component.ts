@@ -32,7 +32,8 @@ export class CreateProjectComponent implements OnInit {
 
   create() {
     var p = new Project();
-    p.users = this.users;
+    p.users = [];
+    p.users = p.users.concat(this.users.split(';'));
     p.name = this.name;
     p.company = this.company;
     this.fetcher.postNewProjectToApi(p).subscribe(resp => this.router.navigate(["projects"]), error =>console.log(error));

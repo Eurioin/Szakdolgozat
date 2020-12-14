@@ -63,6 +63,7 @@ namespace Szakdolgozat.Controllers
                 dto.status = task.Status;
                 dto.type = task.Type;
                 dto.id = task.Id;
+                dto.description = task.Description;
                 dto.endDate = task.EndDate;
             }
             
@@ -85,7 +86,7 @@ namespace Szakdolgozat.Controllers
             task.Project = t.project;
             task.HandledBy = new List<string>();
             task.SubTasksIds = new List<string>();
-            task.Status = "Waiting for begin";
+            task.Status = "New";
             task.DateOfCreation = date;
             this.taskService.Create(task);
             task = this.taskService.GetAll().Where(a => a.DateOfCreation.Date.Equals(date.Date) && a.DateOfCreation.Hour.Equals(date.Hour) && a.DateOfCreation.Minute.Equals(date.Minute) && a.DateOfCreation.Second.Equals(date.Second)).FirstOrDefault();
@@ -119,7 +120,10 @@ namespace Szakdolgozat.Controllers
                     this.subTaskService.Create(sub);
                     task.NumberOfSubTasks++;
                     sub = this.subTaskService.GetAll().Where(a => a.Description.Equals(sb) && a.DateOfCreation.Date.Equals(date.Date) && a.DateOfCreation.Hour.Equals(date.Hour) && a.DateOfCreation.Minute.Equals(date.Minute) && a.DateOfCreation.Second.Equals(date.Second)).FirstOrDefault();
-                    task.SubTasksIds.Add(sub.Id);
+                    if (sub != null)
+                    {
+                        task.SubTasksIds.Add(sub.Id);
+                    }
                 }
             }
 

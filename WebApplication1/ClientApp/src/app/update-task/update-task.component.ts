@@ -50,7 +50,7 @@ export class UpdateTaskComponent implements OnInit {
       this.date = resp.endDate;
       this.priority = resp.priority;
       this.project = resp.project;
-      this.fetcher.getProjectFromApi(this.project).subscribe(r => {
+      this.fetcher.getProjectFromApi(this.project).then(r => {
         if (r !== null) {
           this.Project = r;
           this.Selected = [];
@@ -70,9 +70,6 @@ export class UpdateTaskComponent implements OnInit {
         }
       }, err => console.log(err));
     });
-    (<HTMLInputElement>document.getElementById('desc')).value = this.description;
-    (<HTMLInputElement>document.getElementById('date')).value = this.date.toString();
-
   }
 
   edit() {

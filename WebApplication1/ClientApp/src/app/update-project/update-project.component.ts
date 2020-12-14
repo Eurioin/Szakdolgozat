@@ -25,7 +25,7 @@ export class UpdateProjectComponent implements OnInit {
         this.router.navigate(["/authentication/login"]);
       } else {
         this.Id = this.route.snapshot.paramMap.get('id');
-        this.fetcher.getProjectFromApi(this.Id).subscribe(resp => {
+        this.fetcher.getProjectFromApi(this.Id).then(resp => {
           this.name = resp.name;
           this.company = resp.company;
           resp.assignees.forEach(a =>{
@@ -42,7 +42,8 @@ export class UpdateProjectComponent implements OnInit {
   edit() {
     var p = new Project();
     p.id = this.Id;
-    p.users = this.users;
+    p.users = [];
+    p.users = p.users.concat(this.users.split(';'));
     p.name = this.name;
     p.company = this.company;
     this.fetcher.postUpdateProjectToApi(p).subscribe(resp => this.router.navigate(["project", this.Id]), error =>console.log(error));

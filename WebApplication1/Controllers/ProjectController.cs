@@ -64,7 +64,7 @@ namespace Szakdolgozat.Controllers
         }
 
         [HttpPost("create")]
-        public Project Create([FromBody] FromAngularProject p)
+        public void Create([FromBody]FromAngularProject p)
         {
             var project = new Project();
             project.Name = p.name;
@@ -78,7 +78,7 @@ namespace Szakdolgozat.Controllers
 
             if (project == null)
             {
-                return null;
+                return;
             }
 
             foreach (var user in p.users)
@@ -102,7 +102,6 @@ namespace Szakdolgozat.Controllers
                 }
             }
             this.projectService.Update(project.Id, project);
-            return project;
         }
 
         [HttpPost("update")]

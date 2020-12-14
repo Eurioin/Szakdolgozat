@@ -27,7 +27,11 @@ namespace Szakdolgozat.Services
 
         public override Project GetById(string id)
         {
-            return this._collection.Find(p => p.Id.Equals(id)).FirstOrDefault();
+            if (id != null ||id != "null")
+            {
+                return this._collection.Find(p => p.Id.Equals(id)).FirstOrDefault();
+            }
+            return null;
         }
 
         public override void Update(string id, Project item)
